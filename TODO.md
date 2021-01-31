@@ -13,6 +13,7 @@
     - [x] Core JS
     - [x] Messaging Implementation in Java
 - [ ] Tests
+- [x] dockerize
 
 Here is how's it going to be built.
 

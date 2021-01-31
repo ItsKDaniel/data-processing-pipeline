@@ -46,3 +46,26 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+bootJar {
+    enabled = true
+    archiveFileName = "falcon-data-pipeline.jar"
+    manifest {
+        attributes 'provider': 'gradle'
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    published
+    [apiElements, runtimeElements].each {
+        it.outgoing.artifacts.removeIf { it.buildDependencies.getDependencies(null).contains(jar) }
+        it.outgoing.artifact(bootJar)
+    }
+}

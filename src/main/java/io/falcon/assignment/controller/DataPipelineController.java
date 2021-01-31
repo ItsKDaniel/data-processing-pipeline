@@ -47,9 +47,10 @@ public class DataPipelineController extends BaseController {
         return response(PAYLOAD_PUBLISHED);
     }
 
-    @GetMapping(path = "/api/payload/all")
-    public ResponseEntity<Object> getAllPayload() {
+    @GetMapping(path = "/api/payload/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Payload>> getAllPayload() {
         List<Payload> payloads = publisher.getAllDataFromRepo();
-        return response(SUCCESS, payloads);
+        // return response(SUCCESS, payloads);
+        return ResponseEntity.ok(payloads); // as per requirement the response body is supposed to be a list.
     }
 }

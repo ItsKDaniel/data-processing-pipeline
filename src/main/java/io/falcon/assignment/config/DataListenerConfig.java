@@ -2,6 +2,7 @@ package io.falcon.assignment.config;
 
 import io.falcon.assignment.model.PayloadRequest;
 import io.falcon.assignment.service.pubsub.RedisPubSubService;
+import io.falcon.assignment.service.websocket.SocketListener;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,12 +28,22 @@ public class DataListenerConfig {
         return adapter;
     }
 
+    @Bean(name = "broadcastListener")
+    public MessageListenerAdapter broadcastListener(SocketListener listener,
+                                                    @Qualifier("publisherSerializer") RedisSerializer<PayloadRequest> redisSerializer) {
+        MessageListenerAdapter adapter = new MessageListenerAdapter(listener, "listen");
+        adapter.setSerializer(redisSerializer);
+        return adapter;
+    }
+
     @Bean
     public RedisMessageListenerContainer messageListener(@Qualifier("connectionFactory") RedisConnectionFactory connectionFactory,
-                                                         @Qualifier("pubSubListener") MessageListener pubSubListener) {
+                                                         @Qualifier("pubSubListener") MessageListener pubSubListener,
+                                                         @Qualifier("broadcastListener") MessageListener broadcastListener) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.addMessageListener(pubSubListener, ChannelTopic.of(topic));
+        container.addMessageListener(broadcastListener, ChannelTopic.of(topic));
 
         return container;
     }

@@ -1,6 +1,6 @@
 package io.falcon.assignment.model;
 
-import io.falcon.assignment.validators.Date;
+import io.falcon.assignment.model.validators.TimeStamp;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,7 +14,7 @@ public class Payload implements Serializable {
     @NotBlank
     private String content;
 
-    @Date
+    @TimeStamp
     private String timestamp;
 
     private Integer longest_palindrome_size;

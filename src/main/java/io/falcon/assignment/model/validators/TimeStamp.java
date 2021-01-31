@@ -1,4 +1,4 @@
-package io.falcon.assignment.validators;
+package io.falcon.assignment.model.validators;
 
 import io.falcon.assignment.utils.Constants;
 
@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = DateValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Date {
+public @interface TimeStamp {
     String pattern() default Constants.FORM_DATE_FORMAT;
 
     String message() default "Invalid date";

@@ -1,4 +1,4 @@
-package io.falcon.assignment.validators;
+package io.falcon.assignment.model.validators;
 
 import io.falcon.assignment.exceptions.BadRequestException;
 
@@ -7,12 +7,12 @@ import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DateValidator implements ConstraintValidator<Date, String> {
+public class DateValidator implements ConstraintValidator<TimeStamp, String> {
 
     DateTimeFormatter formatter;
 
     @Override
-    public void initialize(Date constraintAnnotation) {
+    public void initialize(TimeStamp constraintAnnotation) {
         this.formatter = DateTimeFormatter.ofPattern(constraintAnnotation.pattern());
     }
 

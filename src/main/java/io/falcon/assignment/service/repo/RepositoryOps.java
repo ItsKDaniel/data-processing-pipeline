@@ -1,6 +1,7 @@
 package io.falcon.assignment.service.repo;
 
 import io.falcon.assignment.model.Payload;
+import io.falcon.assignment.model.PayloadRequest;
 import io.falcon.assignment.service.RepositoryOperations;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class RepositoryOps implements RepositoryOperations<Payload> {
         return payloads;
     }
 
-    public RedisOperations<String, Payload> getRedisOps() {
-        return this.redisOps;
+    public void publish(String channel, PayloadRequest message) {
+        redisOps.convertAndSend(channel, message);
     }
 }

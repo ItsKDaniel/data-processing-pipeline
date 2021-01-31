@@ -1,14 +1,21 @@
 package io.falcon.assignment.model;
 
+import io.falcon.assignment.validators.Date;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
-public class Payload {
+@Builder
+public class Payload implements Serializable {
+
+    @NotBlank
     private String content;
-    private Date timestamp;
+
+    @Date
+    private String timestamp;
+
     private Integer longest_palindrome_size;
 }

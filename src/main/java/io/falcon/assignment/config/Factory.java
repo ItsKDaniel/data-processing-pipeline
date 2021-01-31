@@ -3,19 +3,20 @@ package io.falcon.assignment.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.falcon.assignment.model.Payload;
-import io.falcon.assignment.service.impl.PubSubServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.PatternTopic;
-import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.data.redis.core.ReactiveRedisOperations;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 import java.util.UUID;
 
@@ -31,8 +32,9 @@ public class Factory {
     @Value("${spring.redis.database:0}")
     private int database;
 
-    @Bean
-    public RedisConnectionFactory connectionFactory() {
+    @Primary
+    @Bean(name = "connectionFactory")
+    public ReactiveRedisConnectionFactory connectionFactory() {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(host, port);
         config.setPassword(RedisPassword.of(password));
         config.setDatabase(database);
@@ -40,35 +42,17 @@ public class Factory {
         return new LettuceConnectionFactory(config);
     }
 
-    @Bean
-    public RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
-                                                   MessageListenerAdapter listenerAdapter) {
-
-        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.addMessageListener(listenerAdapter, new PatternTopic(""));
-
-        return container;
+    @Bean("repoOps")
+    public ReactiveRedisOperations<UUID, Payload> redisTemplate(@Qualifier("connectionFactory") ReactiveRedisConnectionFactory lettuceConnectionFactory,
+                                                                @Qualifier("redisSerializer") RedisSerializer<Payload> redisSerializer) {
+        RedisSerializationContext<UUID, Payload> serializationContext = RedisSerializationContext
+                .<UUID, Payload>newSerializationContext(RedisSerializer.string())
+                .value(redisSerializer)
+                .build();
+        return new ReactiveRedisTemplate<UUID, Payload>(lettuceConnectionFactory, serializationContext);
     }
 
-    @Bean
-    public MessageListenerAdapter listenerAdapter(PubSubServiceImpl receiver,
-                                                  Jackson2JsonRedisSerializer<Payload> redisSerializer) {
-        MessageListenerAdapter adapter = new MessageListenerAdapter(receiver);
-        adapter.setSerializer(redisSerializer);
-        return adapter;
-    }
-
-    @Bean
-    public RedisTemplate<UUID, Payload> redisTemplate(RedisConnectionFactory connectionFactory,
-                                                      Jackson2JsonRedisSerializer<Payload> redisSerializer) {
-        RedisTemplate<UUID, Payload> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(connectionFactory);
-        redisTemplate.setValueSerializer(redisSerializer);
-        return redisTemplate;
-    }
-
-    @Bean
+    @Bean(name = "redisSerializer")
     public Jackson2JsonRedisSerializer<Payload> redisSerializer() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());

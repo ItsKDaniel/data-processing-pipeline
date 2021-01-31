@@ -9,5 +9,7 @@ public interface Constants {
     String MESSAGE = "message";
     String URI = "uri";
 
+    String MATCH_ONLY_ALPHABETS = "[a-zA-Z]+\\.?";
+
     // WebSocket
 }

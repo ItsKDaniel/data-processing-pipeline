@@ -1,2 +1,13 @@
 redis:
   topic.name: _messages_
+
+spring:
+  application:
+    name: "falcon-data-pipeline"
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+logging:
+  level:
+    io.falcon.assignment.service: debug

@@ -1,8 +1,8 @@
-package io.falcon.assignment.config;
+package io.falcon.assignment.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.falcon.assignment.model.Payload;
+import io.falcon.assignment.common.model.Payload;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import java.util.UUID;
 
 @Configuration
-public class Factory {
+public class RedisConfig {
 
     @Value("${spring.redis.host:localhost}")
     private String host;

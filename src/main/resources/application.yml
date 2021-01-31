@@ -1,1 +1,2 @@
-
+redis:
+  topic.name: _messages_

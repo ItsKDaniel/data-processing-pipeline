@@ -1,6 +1,6 @@
-package io.falcon.assignment.model.validators;
+package io.falcon.assignment.common.model.validators;
 
-import io.falcon.assignment.utils.Constants;
+import io.falcon.assignment.common.utils.Constants;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TimeStamp {
-    String pattern() default Constants.FORM_DATE_FORMAT;
+    String pattern() default Constants.TIMESTAMP_WITH_ZONE;
 
     String message() default "Invalid date";
 

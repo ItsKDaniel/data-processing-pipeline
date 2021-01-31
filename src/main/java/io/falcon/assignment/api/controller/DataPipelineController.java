@@ -1,6 +1,6 @@
-package io.falcon.assignment.controller;
+package io.falcon.assignment.api.controller;
 
-import io.falcon.assignment.model.Payload;
+import io.falcon.assignment.common.model.Payload;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;

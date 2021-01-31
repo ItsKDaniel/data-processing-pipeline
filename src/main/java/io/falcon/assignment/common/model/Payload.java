@@ -1,6 +1,6 @@
-package io.falcon.assignment.model;
+package io.falcon.assignment.common.model;
 
-import io.falcon.assignment.model.validators.TimeStamp;
+import io.falcon.assignment.common.model.validators.TimeStamp;
 import lombok.Builder;
 import lombok.Data;
 

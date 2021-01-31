@@ -1,4 +1,4 @@
-package io.falcon.assignment.model;
+package io.falcon.assignment.common.model;
 
 import lombok.Builder;
 import lombok.Data;

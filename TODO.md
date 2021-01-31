@@ -1,20 +1,20 @@
 ### Requirements
 
 - [ ] REST API implementation
-    - [ ] GET `retrieve all data from redis`
-    - [ ] POST `save data to redis as well as publish to websocket`
+    - [x] GET `retrieve all data from redis`
+    - [x] POST `save data to redis as well as publish to websocket`
     - [x] Redis Template, Jackson serializer
     - [ ] Calculate `longest_palindrome_size`
-    - [ ] Convert timestamp to GMT
-- [ ] Redis PubSub implementation
-    - [ ] Messaging publish
+    - [x] Convert timestamp to GMT
+- [x] Redis PubSub implementation
+    - [x] Messaging publish
 - [ ] WebSocket implementation
     - [ ] HTML, CSS
     - [ ] Core JS
     - [ ] Messaging Implementation in Java
+- [ ] Tests
 
-
-Heres how's it going to be built.
+Here is how's it going to be built.
 1. Create a POST endpoint to receive the payload and publish to Redis.
 2. Create two subscribers that pulls contents from Redis.  
   2.1. Repository subscriber - pull content, calculate longest palindrome size, persist to redis  

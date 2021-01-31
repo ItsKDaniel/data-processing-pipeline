@@ -8,10 +8,10 @@
     - [x] Convert timestamp to GMT
 - [x] Redis PubSub implementation
     - [x] Messaging publish
-- [ ] WebSocket implementation
-    - [ ] HTML, CSS
-    - [ ] Core JS
-    - [ ] Messaging Implementation in Java
+- [x] WebSocket implementation
+    - [x] HTML, CSS
+    - [x] Core JS
+    - [x] Messaging Implementation in Java
 - [ ] Tests
 
 Here is how's it going to be built.

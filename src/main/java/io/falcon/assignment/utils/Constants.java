@@ -1,7 +1,8 @@
-package io.falcon.assignment.common.utils;
+package io.falcon.assignment.utils;
 
 public interface Constants {
-    // PUB SUB
+    // REPO
+    String PAYLOAD_KEY = "payload-list";
 
     // REST
     String TIMESTAMP_WITH_ZONE = "yyyy-MM-dd HH:mm:ssZ";

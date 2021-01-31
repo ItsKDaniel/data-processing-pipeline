@@ -1,6 +1,6 @@
-package io.falcon.assignment.common.utils;
+package io.falcon.assignment.utils;
 
-import io.falcon.assignment.common.model.ApiResponse;
+import io.falcon.assignment.model.ApiResponse;
 
 public enum ApiResponseCodes {
     // GENERICS

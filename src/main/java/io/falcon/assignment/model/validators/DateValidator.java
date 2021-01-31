@@ -1,6 +1,6 @@
-package io.falcon.assignment.common.model.validators;
+package io.falcon.assignment.model.validators;
 
-import io.falcon.assignment.common.exceptions.BadRequestException;
+import io.falcon.assignment.exceptions.BadRequestException;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,6 +1,6 @@
-package io.falcon.assignment.common.exceptions;
+package io.falcon.assignment.exceptions;
 
-import io.falcon.assignment.common.utils.ApiResponseCodes;
+import io.falcon.assignment.utils.ApiResponseCodes;
 
 public class BadRequestException extends RuntimeException {
 

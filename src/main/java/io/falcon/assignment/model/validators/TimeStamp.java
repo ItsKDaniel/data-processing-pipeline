@@ -1,6 +1,6 @@
-package io.falcon.assignment.common.model.validators;
+package io.falcon.assignment.model.validators;
 
-import io.falcon.assignment.common.utils.Constants;
+import io.falcon.assignment.utils.Constants;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

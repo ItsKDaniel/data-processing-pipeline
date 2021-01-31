@@ -1,6 +1,6 @@
-package io.falcon.assignment.common.exceptions;
+package io.falcon.assignment.exceptions;
 
-import io.falcon.assignment.common.utils.ApiResponseCodes;
+import io.falcon.assignment.utils.ApiResponseCodes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static io.falcon.assignment.common.utils.Constants.MESSAGE;
-import static io.falcon.assignment.common.utils.Constants.URI;
+import static io.falcon.assignment.utils.Constants.MESSAGE;
+import static io.falcon.assignment.utils.Constants.URI;
 
 @Slf4j
 @ControllerAdvice

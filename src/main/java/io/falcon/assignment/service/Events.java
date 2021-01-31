@@ -1,4 +1,4 @@
-package io.falcon.assignment.common.service;
+package io.falcon.assignment.service;
 
 /**
  * Events listener that publishes to or listens from sockets or pubsub stream

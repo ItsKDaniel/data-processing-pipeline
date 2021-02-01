@@ -3,7 +3,6 @@ package io.falcon.assignment.controller;
 import io.falcon.assignment.model.Payload;
 import io.falcon.assignment.model.PayloadRequest;
 import io.falcon.assignment.service.pubsub.RedisPubSubService;
-import io.falcon.assignment.utils.ApiResponseCodes;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,11 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 
 import static io.falcon.assignment.utils.ApiResponseCodes.PAYLOAD_PUBLISHED;
-import static io.falcon.assignment.utils.ApiResponseCodes.SUCCESS;
 
 @RestController
 public class DataPipelineController extends BaseController {
@@ -50,7 +47,6 @@ public class DataPipelineController extends BaseController {
     @GetMapping(path = "/api/payload/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Payload>> getAllPayload() {
         List<Payload> payloads = publisher.getAllDataFromRepo();
-        // return response(SUCCESS, payloads);
         return ResponseEntity.ok(payloads); // as per requirement the response body is supposed to be a list.
     }
 }

@@ -1,7 +1,5 @@
 package io.falcon.assignment.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.falcon.assignment.model.Payload;
 import io.falcon.assignment.model.PayloadRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,20 +7,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.ReactiveRedisOperations;
-import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
-
-import java.util.UUID;
 
 @Configuration
 public class RedisConfig {
@@ -48,7 +40,7 @@ public class RedisConfig {
 
     @Bean("repoOps")
     public RedisOperations<String, Payload> redisTemplate(@Qualifier("connectionFactory") RedisConnectionFactory lettuceConnectionFactory,
-                                                        @Qualifier("redisSerializer") RedisSerializer<Payload> redisSerializer) {
+                                                          @Qualifier("redisSerializer") RedisSerializer<Payload> redisSerializer) {
         RedisTemplate<String, Payload> redisTemplate = new RedisTemplate<>();
 
         redisTemplate.setConnectionFactory(lettuceConnectionFactory);

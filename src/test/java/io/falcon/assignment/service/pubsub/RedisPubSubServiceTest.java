@@ -24,7 +24,7 @@ class RedisPubSubServiceTest {
     private RepositoryOps repoOps;
 
     @Test
-    public void listen() {
+    void listen() {
         PayloadRequest request = new PayloadRequest();
         request.setContent("abrakadabra");
         request.setTimestamp("2018-10-09 00:12:12+0100");
@@ -38,7 +38,7 @@ class RedisPubSubServiceTest {
     }
 
     @Test
-    public void publish() {
+    void publish() {
         PayloadRequest request = new PayloadRequest();
         request.setContent("abrakadabra");
         request.setTimestamp("2018-10-09 00:12:12+0100");
@@ -49,7 +49,7 @@ class RedisPubSubServiceTest {
     }
 
     @Test
-    public void getAllDataFromRepo() {
+    void getAllDataFromRepo() {
         service.getAllDataFromRepo();
 
         verify(repoOps, times(1)).findAll();

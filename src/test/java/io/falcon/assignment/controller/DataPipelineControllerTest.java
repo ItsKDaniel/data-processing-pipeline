@@ -46,7 +46,7 @@ class DataPipelineControllerTest {
     }
 
     @Test
-    public void testPublishSuccess() throws Exception {
+    void testPublishSuccess() throws Exception {
 
         mockMvc.perform(
                 post("/api/publish")
@@ -61,7 +61,7 @@ class DataPipelineControllerTest {
     }
 
     @Test
-    public void testPublishBadRequest_missingcontent() throws Exception {
+    void testPublishBadRequest_missingcontent() throws Exception {
         mockMvc.perform(
                 post("/api/publish")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -73,7 +73,7 @@ class DataPipelineControllerTest {
     }
 
     @Test
-    public void testPublishBadRequest_invalidDateFormat() throws Exception {
+    void testPublishBadRequest_invalidDateFormat() throws Exception {
         mockMvc.perform(
                 post("/api/publish")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -85,14 +85,14 @@ class DataPipelineControllerTest {
     }
 
     @Test
-    public void testGetAllPayloadSuccess() throws Exception {
+    void testGetAllPayloadSuccess() throws Exception {
 
         when(mockPublisher.getAllDataFromRepo())
                 .thenReturn(Collections.singletonList(
                         Payload.builder()
                                 .content("abrakadabra")
                                 .timestamp("2018-10-08 23:12:12+0000")
-                                .longest_palindrome_size(3)
+                                .longestPalindromeSize(3)
                                 .build()
                 ));
 

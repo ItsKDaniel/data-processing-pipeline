@@ -59,44 +59,45 @@ public class PalindromeHelper {
         // transform
         char[] transformed = transformToManacherArray(content);
 
-        // each element of palindrome_length will contain the length of the longest palindromic substring of the transformed text
+        // each element of palindromeLength will contain the length of the longest palindromic substring of the transformed text
         // with center as the current index.
-        int[] palindrome_length = new int[transformed.length];
+        int[] palindromeLength = new int[transformed.length];
 
         // Manacher's algo for odd length palindrome
-        int center = 0, right = 0;
+        int center = 0;
+        int right = 0;
 
         // starting with index 1 as $ is at 0 for bound checking
         for (int i = 1; i < transformed.length - 1; i++) {
             int mirror = 2 * center - i;
 
             if (right > i) {
-                palindrome_length[i] = Math.min(right - i, palindrome_length[mirror]);
+                palindromeLength[i] = Math.min(right - i, palindromeLength[mirror]);
             }
 
             // expand and verify the palindrome with center at index i
             // say i is at 'a' in the string "$#m#a#d#a#m#%"
             // t[4 + (1 + 0)] == t[4 - (1 + 0)] => t[5] == t[3] => # == # => p[4] = 1
             // t[4 + (1 + 1)] == t[4 - (1 + 1)] => t[6] == t[2] => m == d => break
-            while (transformed[i + (1 + palindrome_length[i])] == transformed[i - (1 + palindrome_length[i])]) {
-                palindrome_length[i]++;
+            while (transformed[i + (1 + palindromeLength[i])] == transformed[i - (1 + palindromeLength[i])]) {
+                palindromeLength[i]++;
             }
 
             // if palindrome centered at i expands past right,
             // adjust center based on expanded palindrome.
-            if (palindrome_length[i] + i > right) {
+            if (palindromeLength[i] + i > right) {
                 center = i;
-                right = i + palindrome_length[i];
+                right = i + palindromeLength[i];
             }
         }
 
-        // iterate thru palindrome_length
+        // iterate thru palindromeLength
         // find the appropriate center and the length required to get the longest palindrome substring
         int length = 0;
         center = 0;
-        for (int i = 1; i < palindrome_length.length - 1; i++) {
-            if (palindrome_length[i] > length) {
-                length = palindrome_length[i];
+        for (int i = 1; i < palindromeLength.length - 1; i++) {
+            if (palindromeLength[i] > length) {
+                length = palindromeLength[i];
                 center = i;
             }
         }

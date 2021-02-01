@@ -31,7 +31,7 @@ public class PayloadConverter {
         return Payload.builder()
                 .content(message.getContent())
                 .timestamp(convertTimeStampToUTC(message.getTimestamp()))
-                .longest_palindrome_size(helper.calculateLongestPalindromeSize(message.getContent()))
+                .longestPalindromeSize(helper.calculateLongestPalindromeSize(message.getContent()))
                 .build();
     }
 

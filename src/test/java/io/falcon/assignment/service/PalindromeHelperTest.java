@@ -6,12 +6,11 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PalindromeHelperTest {
+class PalindromeHelperTest {
 
     private static PalindromeHelper tested;
 
@@ -21,8 +20,8 @@ public class PalindromeHelperTest {
     }
 
     @Test
-    public void calculateLongestPalindromeSize() {
-            List<Integer> actual = Stream.of("daniel", "abrakadabra", "race car", "mA D 2323 a ! m", "12312313", "not hin g", "aa bb !! b b a a")
+    void calculateLongestPalindromeSize() {
+        List<Integer> actual = Stream.of("daniel", "abrakadabra", "race car", "mA D 2323 a ! m", "12312313", "not hin g", "aa bb !! b b a a")
                 .map(content -> tested.calculateLongestPalindromeSize(content))
                 .collect(Collectors.toList());
 

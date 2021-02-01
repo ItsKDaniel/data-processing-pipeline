@@ -1,15 +1,14 @@
 package io.falcon.assignment.utils;
 
-public interface Constants {
+public final class Constants {
     // REPO
-    String PAYLOAD_KEY = "payload-list";
+    public static final String PAYLOAD_KEY = "payload-list";
 
     // REST
-    String TIMESTAMP_WITH_ZONE = "yyyy-MM-dd HH:mm:ssZ";
-    String MESSAGE = "message";
-    String URI = "uri";
+    public static final String TIMESTAMP_WITH_ZONE = "yyyy-MM-dd HH:mm:ssZ";
+    public static final String MESSAGE = "message";
+    public static final String URI = "uri";
 
-    String MATCH_ONLY_ALPHABETS = "[a-zA-Z]+\\.?";
+    public static final String MATCH_ONLY_ALPHABETS = "[a-zA-Z]+\\.?";
 
-    // WebSocket
 }

@@ -10,7 +10,6 @@ import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 import static io.falcon.assignment.utils.Constants.PAYLOAD_KEY;
 

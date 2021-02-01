@@ -44,13 +44,13 @@ class PayloadConverterTest {
     @Test
     void makePayload() {
         List<Payload> expected = Arrays.asList(
-                Payload.builder().content("daniel").timestamp("2021-01-31 04:42:40+0000").longest_palindrome_size(0).build(),
-                Payload.builder().content("abrakadabra").timestamp("2018-10-08 23:12:12+0000").longest_palindrome_size(3).build(),
-                Payload.builder().content("race car").timestamp("2021-01-30 23:12:19+0000").longest_palindrome_size(7).build(),
-                Payload.builder().content("mA D 2323 a ! m").timestamp("2021-02-01 05:12:12+0000").longest_palindrome_size(5).build(),
-                Payload.builder().content("12312313").timestamp("2021-01-31 23:12:12+0000").longest_palindrome_size(0).build(),
-                Payload.builder().content("not hin g").timestamp("2021-01-08 21:12:12+0000").longest_palindrome_size(0).build(),
-                Payload.builder().content("aa bb !! b b a a").timestamp("2021-01-22 20:15:12+0000").longest_palindrome_size(8).build()
+                Payload.builder().content("daniel").timestamp("2021-01-31 04:42:40+0000").longestPalindromeSize(0).build(),
+                Payload.builder().content("abrakadabra").timestamp("2018-10-08 23:12:12+0000").longestPalindromeSize(3).build(),
+                Payload.builder().content("race car").timestamp("2021-01-30 23:12:19+0000").longestPalindromeSize(7).build(),
+                Payload.builder().content("mA D 2323 a ! m").timestamp("2021-02-01 05:12:12+0000").longestPalindromeSize(5).build(),
+                Payload.builder().content("12312313").timestamp("2021-01-31 23:12:12+0000").longestPalindromeSize(0).build(),
+                Payload.builder().content("not hin g").timestamp("2021-01-08 21:12:12+0000").longestPalindromeSize(0).build(),
+                Payload.builder().content("aa bb !! b b a a").timestamp("2021-01-22 20:15:12+0000").longestPalindromeSize(8).build()
         );
 
         List<Payload> actual = payloads.stream()

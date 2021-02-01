@@ -9,6 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 @Builder
+@EqualsAndHashCode
 public class Payload {
     private String content;
     private String timestamp;

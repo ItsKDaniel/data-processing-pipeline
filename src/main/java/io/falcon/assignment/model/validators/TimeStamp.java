@@ -4,7 +4,6 @@ import io.falcon.assignment.utils.Constants;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.constraints.NotBlank;
 import java.lang.annotation.*;
 
 @Documented

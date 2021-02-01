@@ -1,8 +1,9 @@
 plugins {
-    id 'org.springframework.boot' version '2.4.2'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version "${springVersion}"
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
     id 'java'
     id 'jacoco'
+    id 'org.sonarqube' version "${sonarVersion}"
 }
 
 group = 'io.falcon'
@@ -88,3 +89,22 @@ configurations {
         it.outgoing.artifact(bootJar)
     }
 }
+
+sonarqube {
+    properties {
+        property 'sonar.scm.provider', 'git'
+        property 'sonar.projectName', "${project.name}"
+        property 'sonar.projectKey', "${project.name}"
+        property 'sonar.sources', "src/main"
+        property 'sonar.tests', "src/test"
+        property 'sonar.ws.timeout', '600'
+        property 'sonar.coverage.exclusions', '**/model/**,**/exceptions/**,**/config/**'
+        property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco/report.xml"
+        property "sonar.junit.reportsPaths", "${buildDir}/test-results/"
+        property 'sonar.host.url', "${sonarurl}"
+        property 'sonar.login', "${sonarlogin}"
+    }
+}
+
+tasks.jacocoTestReport.dependsOn(compileTestJava)
+tasks.sonarqube.dependsOn(jacocoTestReport)

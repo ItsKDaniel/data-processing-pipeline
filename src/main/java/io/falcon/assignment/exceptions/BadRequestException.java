@@ -11,17 +11,8 @@ public class BadRequestException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    private BadRequestException(ApiResponseCodes errorCode, Throwable cause) {
-        super(cause);
-        this.errorCode = errorCode;
-    }
-
     public static BadRequestException invalidDate() {
         return new BadRequestException(ApiResponseCodes.INVALID_DATE_FORMAT);
-    }
-
-    public static BadRequestException invalidDate(Exception ex) {
-        return new BadRequestException(ApiResponseCodes.INVALID_DATE_FORMAT, ex);
     }
 
     public ApiResponseCodes getErrorCode() {

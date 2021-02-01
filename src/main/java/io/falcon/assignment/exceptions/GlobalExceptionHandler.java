@@ -54,7 +54,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         Map<String, String> fieldMappings = ex.getBindingResult().getFieldErrors()
                 .stream()
                 .collect(Collectors.toMap(k -> MESSAGE, fieldError -> fieldError.getField() + " " + fieldError.getDefaultMessage(), (field1, field2) -> field1));
-        return responseEntity(ApiResponseCodes.BAD_REQUEST, request, fieldMappings);
+        return responseEntity(ApiResponseCodes.FORM_CONSTRAINT_ERROR, request, fieldMappings);
     }
 
     private ResponseEntity<Object> responseEntity(ApiResponseCodes apiResult, WebRequest request, Map<String, String> errorMessages) {

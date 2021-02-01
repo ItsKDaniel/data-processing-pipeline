@@ -18,6 +18,13 @@ public class PalindromeHelper {
         this.pattern = Pattern.compile(MATCH_ONLY_ALPHABETS);
     }
 
+    /**
+     * Uses Manacher's algorithm to calculate the longest palindromic string
+     * and returns its length
+     *
+     * @param content original string
+     * @return length of the longest palindrome in the original string
+     */
     public int calculateLongestPalindromeSize(String content) {
         String filtered = filterAlphabets(content);
 
@@ -29,6 +36,13 @@ public class PalindromeHelper {
         return length > 1 ? length : 0;
     }
 
+    /**
+     * Filters the original string for alphabets, and returns the final String in lowercase
+     * Ex: "Abr a !ka daBR@a" to "AbrakadaBRa" to "abrakadabra"
+     *
+     * @param content original string
+     * @return transformed string in lowercase
+     */
     private String filterAlphabets(String content) {
         return pattern.matcher(content)
                 .results()
@@ -40,7 +54,7 @@ public class PalindromeHelper {
     // More info on the algo here
     //  https://www.baeldung.com/cs/manachers-algorithm
     //  https://leetcode.com/problems/longest-palindromic-substring/solution/
-    // https://en.wikipedia.org/wiki/Longest_palindromic_substring#Manacher's_algorithm
+    //  https://en.wikipedia.org/wiki/Longest_palindromic_substring#Manacher's_algorithm
     private String longestPalindromicSubstring(String content) {
         // transform
         char[] transformed = transformToManacherArray(content);

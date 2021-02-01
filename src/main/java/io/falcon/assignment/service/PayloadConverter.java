@@ -10,6 +10,11 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Enriches the payload to be persisted to Redis with
+ * - timestamp in UTC zone.
+ * - longest palindrome size of the request string
+ */
 @Component
 public class PayloadConverter {
 
@@ -30,6 +35,8 @@ public class PayloadConverter {
                 .build();
     }
 
+    // Convert the zoned timestamp to UTC zone
+    // Ex: "2021-01-31 04:42:40+0400" to "2021-01-31 00:42:40+0000"
     private String convertTimeStampToUTC(String timestamp) {
         return OffsetDateTime.parse(timestamp, formatter)
                 .withOffsetSameInstant(ZoneOffset.UTC)

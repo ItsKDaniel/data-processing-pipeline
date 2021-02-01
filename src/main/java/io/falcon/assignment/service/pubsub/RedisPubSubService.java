@@ -47,6 +47,11 @@ public class RedisPubSubService {
         repoOps.publish(topic, message);
     }
 
+    /**
+     * Retrieve all data from redis
+     *
+     * @return all data persisted
+     */
     public List<Payload> getAllDataFromRepo() {
         return repoOps.findAll();
     }

@@ -3,6 +3,9 @@ package io.falcon.assignment.controller;
 import io.falcon.assignment.utils.ApiResponseCodes;
 import org.springframework.http.ResponseEntity;
 
+/* *
+ * Base utility controller with common methods
+ */
 public class BaseController {
     protected ResponseEntity<Object> response(ApiResponseCodes response) {
         return ResponseEntity.status(response.getHttpCode())

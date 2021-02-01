@@ -18,6 +18,12 @@ public class SocketListener {
         this.messagingTemplate = messagingTemplate;
     }
 
+    /**
+     * Handler that is executed as soon as the data is received by the PubSub topic
+     * The data is published to a websocket.
+     *
+     * @param message payload from the pub/sub topic
+     */
     public void listen(PayloadRequest message) {
         messagingTemplate.convertAndSend(topic, message);
     }

@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 import java.lang.annotation.*;
 
 @Documented
-@NotBlank
 @Constraint(validatedBy = DateValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

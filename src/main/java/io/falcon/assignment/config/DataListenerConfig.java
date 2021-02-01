@@ -20,6 +20,7 @@ public class DataListenerConfig {
     @Value("${redis.topic.name:_messages_}")
     private String topic;
 
+    // listens to the redis pubsub topic and handles the received message
     @Bean(name = "pubSubListener")
     public MessageListenerAdapter pubSubListener(RedisPubSubService listener,
                                                  @Qualifier("publisherSerializer") RedisSerializer<PayloadRequest> redisSerializer) {
@@ -28,6 +29,7 @@ public class DataListenerConfig {
         return adapter;
     }
 
+    // broadcasts the data received by the pubsub topic to a websocket
     @Bean(name = "broadcastListener")
     public MessageListenerAdapter broadcastListener(SocketListener listener,
                                                     @Qualifier("publisherSerializer") RedisSerializer<PayloadRequest> redisSerializer) {
@@ -42,6 +44,8 @@ public class DataListenerConfig {
                                                          @Qualifier("broadcastListener") MessageListener broadcastListener) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
+
+        // listens to incoming data on the topic and handles by triggering the registered handler
         container.addMessageListener(pubSubListener, ChannelTopic.of(topic));
         container.addMessageListener(broadcastListener, ChannelTopic.of(topic));
 

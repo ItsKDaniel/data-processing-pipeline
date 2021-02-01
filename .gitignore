@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Gradle dist ###
+/gradle/
+/gradlew
+/gradlew.bat

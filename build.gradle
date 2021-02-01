@@ -98,7 +98,7 @@ sonarqube {
         property 'sonar.sources', "src/main"
         property 'sonar.tests', "src/test"
         property 'sonar.ws.timeout', '600'
-        property 'sonar.coverage.exclusions', '**/model/**,**/exceptions/**,**/config/**'
+        property 'sonar.coverage.exclusions', '**/model/**,**/exceptions/**,**/config/**,**/static/**'
         property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco/report.xml"
         property "sonar.junit.reportsPaths", "${buildDir}/test-results/"
         property 'sonar.host.url', "${sonarurl}"

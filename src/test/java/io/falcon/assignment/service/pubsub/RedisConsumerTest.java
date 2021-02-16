@@ -2,7 +2,7 @@ package io.falcon.assignment.service.pubsub;
 
 import io.falcon.assignment.model.Payload;
 import io.falcon.assignment.model.PayloadRequest;
-import io.falcon.assignment.service.PayloadConverter;
+import io.falcon.assignment.service.helper.PayloadConverter;
 import io.falcon.assignment.service.repo.RepositoryOps;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,10 +14,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class RedisPubSubServiceTest {
-
+class RedisConsumerTest {
     @InjectMocks
-    private RedisPubSubService service;
+    private RedisConsumer consumer;
     @Mock
     private PayloadConverter converter;
     @Mock
@@ -26,31 +25,18 @@ class RedisPubSubServiceTest {
     @Test
     void listen() {
         PayloadRequest request = new PayloadRequest();
-        request.setContent("abrakadabra");
-        request.setTimestamp("2018-10-09 00:12:12+0100");
 
         when(converter.makePayload(any(PayloadRequest.class))).thenReturn(Payload.builder().build());
 
-        service.listen(request);
+        consumer.listen(request);
 
         verify(converter, times(1)).makePayload(any(PayloadRequest.class));
         verify(repoOps, times(1)).create(any(Payload.class));
     }
 
     @Test
-    void publish() {
-        PayloadRequest request = new PayloadRequest();
-        request.setContent("abrakadabra");
-        request.setTimestamp("2018-10-09 00:12:12+0100");
-
-        service.publish(request);
-
-        verify(repoOps, times(1)).publish(eq(null), any(PayloadRequest.class));
-    }
-
-    @Test
     void getAllDataFromRepo() {
-        service.getAllDataFromRepo();
+        consumer.getAllDataFromRepo();
 
         verify(repoOps, times(1)).findAll();
     }

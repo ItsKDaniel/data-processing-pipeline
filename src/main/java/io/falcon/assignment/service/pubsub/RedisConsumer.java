@@ -2,28 +2,20 @@ package io.falcon.assignment.service.pubsub;
 
 import io.falcon.assignment.model.Payload;
 import io.falcon.assignment.model.PayloadRequest;
-import io.falcon.assignment.service.PayloadConverter;
+import io.falcon.assignment.service.helper.PayloadConverter;
 import io.falcon.assignment.service.repo.RepositoryOps;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Redis PubSub related ops go here
- */
 @Service
-public class RedisPubSubService {
-
+public class RedisConsumer {
     private final PayloadConverter converter;
     private final RepositoryOps repoOps;
 
-    @Value("${redis.topic.name:_messages_}")
-    private String topic;
-
     @Autowired
-    public RedisPubSubService(PayloadConverter converter, RepositoryOps repoOps) {
+    public RedisConsumer(PayloadConverter converter, RepositoryOps repoOps) {
         this.converter = converter;
         this.repoOps = repoOps;
     }
@@ -39,15 +31,6 @@ public class RedisPubSubService {
     }
 
     /**
-     * Publishes message to Redis PubSub topic
-     *
-     * @param message Payload
-     */
-    public void publish(PayloadRequest message) {
-        repoOps.publish(topic, message);
-    }
-
-    /**
      * Retrieve all data from redis
      *
      * @return all data persisted
@@ -55,4 +38,5 @@ public class RedisPubSubService {
     public List<Payload> getAllDataFromRepo() {
         return repoOps.findAll();
     }
+
 }

@@ -1,4 +1,4 @@
-package io.falcon.assignment.service;
+package io.falcon.assignment.service.helper;
 
 import io.falcon.assignment.model.Payload;
 import io.falcon.assignment.model.PayloadRequest;

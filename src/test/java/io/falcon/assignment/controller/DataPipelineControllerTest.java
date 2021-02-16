@@ -3,7 +3,8 @@ package io.falcon.assignment.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.falcon.assignment.model.Payload;
-import io.falcon.assignment.service.pubsub.RedisPubSubService;
+import io.falcon.assignment.service.pubsub.RedisConsumer;
+import io.falcon.assignment.service.pubsub.RedisProducer;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -33,7 +34,9 @@ class DataPipelineControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private RedisPubSubService mockPublisher;
+    private RedisProducer mockPublisher;
+    @MockBean
+    private RedisConsumer mockConsumer;
 
     @BeforeAll
     static void init() {
@@ -42,14 +45,14 @@ class DataPipelineControllerTest {
 
     @AfterEach
     void tearDown() {
-        Mockito.reset(mockPublisher);
+        Mockito.reset(mockPublisher, mockConsumer);
     }
 
     @Test
     void testPublishSuccess() throws Exception {
 
         mockMvc.perform(
-                post("/api/publish")
+                post("/payload/v1/publish")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(buildPayloadRequest("abrakadabra", "2018-10-09 00:12:12+0100"))
                         .with(request -> request))
@@ -63,7 +66,7 @@ class DataPipelineControllerTest {
     @Test
     void testPublishBadRequest_missingcontent() throws Exception {
         mockMvc.perform(
-                post("/api/publish")
+                post("/payload/v1/publish")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(buildPayloadRequest(null, "2018-10-09 00:12:12+0100"))
                         .with(request -> request))
@@ -75,7 +78,7 @@ class DataPipelineControllerTest {
     @Test
     void testPublishBadRequest_invalidDateFormat() throws Exception {
         mockMvc.perform(
-                post("/api/publish")
+                post("/payload/v1/publish")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(buildPayloadRequest("abc", "2018-10-09 00:12:12"))
                         .with(request -> request))
@@ -87,7 +90,7 @@ class DataPipelineControllerTest {
     @Test
     void testGetAllPayloadSuccess() throws Exception {
 
-        when(mockPublisher.getAllDataFromRepo())
+        when(mockConsumer.getAllDataFromRepo())
                 .thenReturn(Collections.singletonList(
                         Payload.builder()
                                 .content("abrakadabra")
@@ -97,14 +100,14 @@ class DataPipelineControllerTest {
                 ));
 
         mockMvc.perform(
-                get("/api/payload/all")
+                get("/payload/v1/all")
                         .with(request -> request))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$", Matchers.hasSize(1)))
                 .andExpect(jsonPath("$[0].content", Matchers.is("abrakadabra")));
 
-        verify(mockPublisher, times(1)).getAllDataFromRepo();
+        verify(mockConsumer, times(1)).getAllDataFromRepo();
     }
 
     private String buildPayloadRequest(String content, String timestamp) throws JsonProcessingException {

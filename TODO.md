@@ -14,6 +14,8 @@
     - [x] Messaging Implementation in Java
 - [x] Tests
 - [x] dockerize
+- [ ] documentation
+    - [ ] update readme with flow diagram  
 
 Here is how's it going to be built.
 

@@ -32,4 +32,4 @@ All REST API response follow the structure
 }
 ```
 
-However, the `GET /api/payload/all` returns a list `[]` as per the requirements
+However, the `GET /payload/v1/all` returns a list `[]` as per the requirements

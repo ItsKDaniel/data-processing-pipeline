@@ -1,7 +1,7 @@
 package io.falcon.assignment.config;
 
 import io.falcon.assignment.model.PayloadRequest;
-import io.falcon.assignment.service.pubsub.RedisPubSubService;
+import io.falcon.assignment.service.pubsub.RedisConsumer;
 import io.falcon.assignment.service.websocket.SocketListener;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +22,7 @@ public class DataListenerConfig {
 
     // listens to the redis pubsub topic and handles the received message
     @Bean(name = "pubSubListener")
-    public MessageListenerAdapter pubSubListener(RedisPubSubService listener,
+    public MessageListenerAdapter pubSubListener(RedisConsumer listener,
                                                  @Qualifier("publisherSerializer") RedisSerializer<PayloadRequest> redisSerializer) {
         MessageListenerAdapter adapter = new MessageListenerAdapter(listener, "listen");
         adapter.setSerializer(redisSerializer);

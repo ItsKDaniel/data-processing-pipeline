@@ -2,7 +2,8 @@ package io.falcon.assignment.controller;
 
 import io.falcon.assignment.model.Payload;
 import io.falcon.assignment.model.PayloadRequest;
-import io.falcon.assignment.service.pubsub.RedisPubSubService;
+import io.falcon.assignment.service.pubsub.RedisConsumer;
+import io.falcon.assignment.service.pubsub.RedisProducer;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,10 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -21,16 +19,19 @@ import java.util.List;
 import static io.falcon.assignment.utils.ApiResponseCodes.PAYLOAD_PUBLISHED;
 
 @RestController
+@RequestMapping("/payload")
 public class DataPipelineController extends BaseController {
 
-    private final RedisPubSubService publisher;
+    private final RedisProducer publisher;
+    private final RedisConsumer consumer;
 
     @Autowired
-    public DataPipelineController(RedisPubSubService publisher) {
+    public DataPipelineController(RedisProducer publisher, RedisConsumer consumer) {
         this.publisher = publisher;
+        this.consumer = consumer;
     }
 
-    @PostMapping(path = "/api/publish", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/v1/publish", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Payload published successfully",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = io.falcon.assignment.model.ApiResponse.class))),
@@ -44,9 +45,9 @@ public class DataPipelineController extends BaseController {
         return response(PAYLOAD_PUBLISHED);
     }
 
-    @GetMapping(path = "/api/payload/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/v1/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Payload>> getAllPayload() {
-        List<Payload> payloads = publisher.getAllDataFromRepo();
+        List<Payload> payloads = consumer.getAllDataFromRepo();
         return ResponseEntity.ok(payloads); // as per requirement the response body is supposed to be a list.
     }
 }

@@ -35,7 +35,7 @@ dependencies {
     implementation 'org.webjars:jquery:3.1.1-1'
 
     // documentation dependencies
-    implementation 'org.springdoc:springdoc-openapi-ui:1.5.3'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.5.6'
 
     // lombok
     compileOnly 'org.projectlombok:lombok'
